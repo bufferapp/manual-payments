@@ -79,12 +79,11 @@ write_to_rs <- function(df) {
 
   # connect to redshift
   con <- dbConnect(RPostgres::Postgres(),
-                   dbname = "buffermetrics",
-                   host = 'buffer-metrics.cgbexruym8z7.us-east-1.redshift.amazonaws.com',
-                   port = '5439',
+                   host = Sys.getenv("REDSHIFT_ENDPOINT"),
+                   port = Sys.getenv("REDSHIFT_DB_PORT"),
+                   dbname = Sys.getenv("REDSHIFT_DB_NAME"),
                    user = Sys.getenv("REDSHIFT_USER"),
-                   password = Sys.getenv("REDSHIFT_PASSWORD"),
-                   sslmode = 'require')
+                   password = Sys.getenv("REDSHIFT_PASSWORD"))
 
   # upload data to manual-payments bucket and replace redshift table
   r <- rs_replace_table(df,
