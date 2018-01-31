@@ -5,6 +5,8 @@ RUN install2.r --error \
     httr \
     aws.s3 \
     devtools \
+    googlesheets \
+    dplyr \
   && installGithub.r \
     RcppCore/Rcpp \
     r-dbi/DBI \
