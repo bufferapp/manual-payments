@@ -14,5 +14,8 @@ RUN install2.r --error \
     sicarul/redshiftTools \
   && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
-ADD manual_payments.R manual_payments.R
+
+COPY manual_payments.R /scripts/
+WORKDIR /scripts
+
 CMD ["Rscript", "manual_payments.R"]
