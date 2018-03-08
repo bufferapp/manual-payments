@@ -21,7 +21,7 @@ read_gs_data <- function() {
   # saveRDS(token, file = "googlesheets_token.rds")
 
   # load oauth token
-  gs_auth(token = "googlesheets_token.rds")
+  gs_auth(token = "./google/googlesheets_token.rds")
 
   # read spreadsheet
   manual <- gs_title("Accounts Receivable - Checks, Invoices, Quotes")
