@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: manual-payments
 spec:
-  schedule: "* * * * *"
+  schedule: "* * */2 * *"
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 5
   concurrencyPolicy: Forbid
