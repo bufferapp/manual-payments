@@ -8,7 +8,7 @@ build:
 	docker build -t $(NAME) .
 
 run: build
-	docker run -it --rm $(NAME)
+	docker run --env-file .env -v $(PWD)/google:/scripts/google -it --rm $(NAME)
 
 push: build
 	docker push $(NAME)
