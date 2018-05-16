@@ -1,4 +1,4 @@
-FROM rocker/tidyverse
+FROM rocker/tidyverse:3.5
 
 RUN install2.r --error \
     -r 'http://cran.rstudio.com' \
@@ -7,12 +7,14 @@ RUN install2.r --error \
     devtools \
     googlesheets \
     dplyr \
-  && installGithub.r \
+    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+ 
+RUN installGithub.r \
     RcppCore/Rcpp \
     r-dbi/DBI \
     r-dbi/RPostgres \
     sicarul/redshiftTools \
-  && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
+    && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
 
 COPY manual_payments.R /scripts/
