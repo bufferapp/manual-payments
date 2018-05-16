@@ -70,4 +70,3 @@ spec:
               items:
               - key: token-rds
                 path: googlesheets_token.rds
-

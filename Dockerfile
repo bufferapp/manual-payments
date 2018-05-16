@@ -8,7 +8,7 @@ RUN install2.r --error \
     googlesheets \
     dplyr \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
- 
+
 RUN installGithub.r \
     RcppCore/Rcpp \
     r-dbi/DBI \

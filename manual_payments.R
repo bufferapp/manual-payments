@@ -16,7 +16,7 @@ convert_dates <- function(dates) {
 
 # function to read data from Google Sheets
 read_gs_data <- function() {
-  
+
   # token <- gs_auth(cache = FALSE)
   # saveRDS(token, file = "googlesheets_token.rds")
 
