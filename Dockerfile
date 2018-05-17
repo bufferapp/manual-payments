@@ -16,6 +16,9 @@ RUN installGithub.r \
     sicarul/redshiftTools \
     && rm -rf /tmp/downloaded_packages/ /tmp/*.rds
 
+# Install Github packages
+RUN R -e "devtools::install_github(c('jwinternheimer/buffer', 'sicarul/redshiftTools'), dependencies = T)"
+
 
 COPY manual_payments.R /scripts/
 WORKDIR /scripts
