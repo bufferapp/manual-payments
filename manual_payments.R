@@ -35,7 +35,7 @@ read_gs_data <- function() {
 clean_gs_data <- function(df) {
   
   # rename columns
-  colnames(df) <- c('customer_name', 'user_id', 'reply_org_id', 'renewal_comm_email','invoice_id', 
+  colnames(df) <- c('customer_name', 'user_id', 'reply_org_id', 'advocate_email','invoice_id', 
                     'reference_number', 'plan_id', 'interval', 'dollar_amount', 'start_at', 'end_at', 'renewal_at',
                     'renewal_comm_at', 'status', 'advocate', 'payment_received_at', 'amount_after_fees',
                     'follow_up', 'buffer_user_id', 'payment_notes', 'customer_notes',
@@ -70,7 +70,8 @@ get_manual_payments <- function() {
   
   # clean data
   df <- clean_gs_data(df) %>% 
-    select(-renewal_comm_email)
+    select(-renewal_comm_email) %>% 
+    filter(!is.na(customer_name))
   
   # return cleaned data
   df
