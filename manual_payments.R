@@ -53,9 +53,11 @@ clean_gs_data <- function(df) {
   # convert the amount to numeric
   df$dollar_amount <- as.numeric(gsub('[$,]', '', df$dollar_amount))
 
-  # select only relevant columns
+  # select only relevant columns and rows
   df <- df %>%
+    filter(!is.na(customer_name)) %>% 
     select(customer_name:status, buffer_user_id) %>%
+    select(-renewal_comm_email) %>% 
     mutate(plan_id = gsub(",", "", plan_id))
 
   df
@@ -69,8 +71,7 @@ get_manual_payments <- function() {
   df <- read_gs_data()
 
   # clean data
-  df <- clean_gs_data(df) %>%
-    select(-renewal_comm_email)
+  df <- clean_gs_data(df) 
 
   # return cleaned data
   df
