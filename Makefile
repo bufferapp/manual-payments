@@ -10,6 +10,10 @@ build:
 run: build
 	docker run --env-file .env -v $(PWD)/google:/scripts/google -it --rm $(NAME)
 
+run-remote: push
+	kubectl delete job manual-payments-manual-run --ignore-not-found=true
+	kubectl create job --from cronjob/manual-payments manual-payments-manual-run
+
 push: build
 	docker push $(NAME)
 

@@ -1,11 +1,9 @@
-apiVersion: batch/v2alpha1
+apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: manual-payments
 spec:
-  schedule: "* * */2 * *"
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 5
+  schedule: "0 0 */2 * *"
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
