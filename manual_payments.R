@@ -26,7 +26,7 @@ read_gs_data <- function() {
 
   # read first sheet
   manual_payments <- manual %>%
-    gs_read(ws = 1)
+    gs_read(ws = "Buffer Invoices")
 
   manual_payments
 }
