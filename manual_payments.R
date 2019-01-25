@@ -61,7 +61,7 @@ clean_gs_data <- function(df) {
     filter(!is.na(customer_name)) %>% 
     select(customer_name:status, buffer_user_id) %>%
     select(-renewal_comm_email) %>% 
-    mutate(dollar_amount = dollar_amount + discount_amount) %>% 
+    mutate(dollar_amount = dollar_amount - discount_amount) %>% 
     select(-discount_type, -discount_amount, -total_paid) %>% 
     mutate(plan_id = gsub(",", "", plan_id))
 
