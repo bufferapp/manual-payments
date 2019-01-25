@@ -33,13 +33,14 @@ read_gs_data <- function() {
 
 # function to clean data
 clean_gs_data <- function(df) {
+  
 
   # rename columns
   colnames(df) <- c('customer_name', 'user_id', 'reply_org_id', 'renewal_comm_email','invoice_id',
-                    'reference_number', 'plan_id', 'interval', 'dollar_amount', 'start_at', 'end_at', 'renewal_at',
-                    'renewal_comm_at', 'status', 'advocate', 'payment_received_at', 'amount_after_fees',
-                    'follow_up', 'buffer_user_id', 'payment_notes', 'customer_notes',
-                    'po_number')
+                    'reference_number', 'plan_id', 'interval', 'dollar_amount', 'discount_type', 
+                    'discount_amount', 'total_paid','start_at', 'end_at', 'renewal_at', 'renewal_comm_at', 
+                    'status', 'advocate', 'payment_received_at', 'amount_after_fees', 'follow_up', 
+                    'buffer_user_id', 'payment_notes', 'customer_notes', 'po_number')
 
 
   # convert dates
@@ -52,12 +53,16 @@ clean_gs_data <- function(df) {
 
   # convert the amount to numeric
   df$dollar_amount <- as.numeric(gsub('[$,]', '', df$dollar_amount))
+  df$discount_amount <- as.numeric(gsub('[$,]', '', df$discount_amount))
+  df$total_paid <- as.numeric(gsub('[$,]', '', df$total_paid))
 
   # select only relevant columns and rows
   df <- df %>%
     filter(!is.na(customer_name)) %>% 
     select(customer_name:status, buffer_user_id) %>%
     select(-renewal_comm_email) %>% 
+    mutate(dollar_amount = dollar_amount + discount_amount) %>% 
+    select(-discount_type, -discount_amount, -total_paid) %>% 
     mutate(plan_id = gsub(",", "", plan_id))
 
   df
