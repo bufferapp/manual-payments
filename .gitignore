@@ -1,5 +1,6 @@
 # Custom
 .env
+.Renviron
 google
 
 # History files
