@@ -43,26 +43,45 @@ clean_gs_data <- function(df) {
                     'buffer_user_id', 'payment_notes', 'customer_notes', 'po_number')
 
 
+  # rename columns
+  colnames(df) <- safe_names(colnames(df))
+  
   # convert dates
   df <- df %>%
-    mutate(start_at = convert_dates(start_at),
-           end_at = convert_dates(end_at),
-           renewal_at = convert_dates(renewal_at),
-           renewal_comm_at = convert_dates(renewal_comm_at),
-           payment_received_at = convert_dates(payment_received_at))
+    mutate(invoice_start_date = convert_dates(service_start_date),
+           invoice_end_date = convert_dates(service_end_date),
+           renewal_date = convert_dates(renewal_date),
+           payment_received_date = convert_dates(payment_received_date)) %>% 
+    rename(customer_id = customer_name,
+           buffer_user_id = bufferid,
+           reply_org_id = reply_orgid,
+           invoice_id = invoice_,
+           plan_id = plan_type,
+           billing_interval = frequency,
+           total_amount_paid = total_paid) %>% 
+    dplyr::select(customer_id,
+                  buffer_user_id,
+                  reply_org_id,
+                  invoice_id,
+                  plan_id,
+                  billing_interval,
+                  invoice_amount,
+                  discount_type,
+                  discount_amount,
+                  total_amount_paid,
+                  invoice_start_date,
+                  invoice_end_date,
+                  renewal_date,
+                  status)
 
+  
   # convert the amount to numeric
-  df$dollar_amount <- as.numeric(gsub('[$,]', '', df$dollar_amount))
+  df$invoice_amount <- as.numeric(gsub('[$,]', '', df$invoice_amount))
   df$discount_amount <- as.numeric(gsub('[$,]', '', df$discount_amount))
-  df$total_paid <- as.numeric(gsub('[$,]', '', df$total_paid))
+  df$total_amount_paid <- as.numeric(gsub('[$,]', '', df$total_amount_paid))
 
-  # select only relevant columns and rows
+  # update plan_id
   df <- df %>%
-    filter(!is.na(customer_name)) %>% 
-    select(customer_name:status, buffer_user_id) %>%
-    select(-renewal_comm_email) %>% 
-    mutate(dollar_amount = dollar_amount - discount_amount) %>% 
-    select(-discount_type, -discount_amount, -total_paid) %>% 
     mutate(plan_id = gsub(",", "", plan_id))
 
   df
@@ -89,7 +108,7 @@ main <- function() {
   df <- get_manual_payments()
 
   # write data
-  buffer::write_to_redshift(df, "manual_payment_invoices", "manual-payments", option = "replace")
+  buffer::write_to_redshift(df, "manual_payments", "manual-payment-invoices", option = "replace")
 
 }
 
