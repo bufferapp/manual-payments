@@ -1,4 +1,4 @@
-NAME = bufferapp/manual-payments:0.2.0
+NAME = bufferapp/manual-payments:0.3.0
 
 .PHONY: all build run dev
 
