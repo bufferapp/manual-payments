@@ -1,4 +1,4 @@
-NAME = bufferapp/manual-payments:0.3.0
+NAME = gcr.io/buffer-data/manual-payments:0.3.0
 
 .PHONY: all build run dev
 
@@ -20,5 +20,5 @@ push: build
 dev:
 	docker run -v $(PWD):/app -it --rm --env-file .env $(NAME)
 
-deploy: push
-	kubectl apply -f "cronjob.yaml"
+deploy:
+	gcloud builds submit --config cloudbuild.yaml .
