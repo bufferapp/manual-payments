@@ -102,6 +102,9 @@ get_manual_payments <- function() {
 
 # the function that does it all
 main <- function() {
+  
+  # set system timezone to UTC
+  Sys.setenv(TZ = 'UTC')
 
   # get data
   df <- get_manual_payments()
