@@ -47,14 +47,14 @@ clean_gs_data <- function(df) {
            renewal_date = convert_dates(renewal_date),
            payment_received_date = convert_dates(payment_received_date)) %>% 
     rename(customer_id = customer_name,
-           buffer_user_id = bufferid,
+           publish_user_id = bufferid,
            reply_org_id = reply_orgid,
            invoice_id = invoice_,
            plan_id = plan_type,
            billing_interval = frequency,
            total_amount_paid = total_paid) %>% 
     dplyr::select(customer_id,
-                  buffer_user_id,
+                  publish_user_id,
                   reply_org_id,
                   invoice_id,
                   plan_id,
