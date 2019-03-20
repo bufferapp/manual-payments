@@ -11,7 +11,7 @@ spec:
         spec:
           containers:
           - name: manual-payments
-            image: bufferapp/manual-payments:0.1.0
+            image: bufferapp/manual-payments:0.3.0
             volumeMounts:
               - name: googlesheets-token
                 mountPath: /scripts/google
