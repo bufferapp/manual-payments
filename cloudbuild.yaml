@@ -1,11 +1,11 @@
 steps:
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/manual-payments:0.3.0', '.' ]
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/manual-payments:0.3.0']
-- name: 'gcr.io/cloud-builders/kubectl'
-  args: ['apply', '-f', 'kubernetes/']
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=apollo'
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/$PROJECT_ID/manual-payments:0.3.0", "."]
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/$PROJECT_ID/manual-payments:0.3.0"]
+  - name: "gcr.io/cloud-builders/kubectl"
+    args: ["apply", "-f", cronjob.yaml']
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-central1-a"
+      - "CLOUDSDK_CONTAINER_CLUSTER=apollo"
 timeout: 36000s
